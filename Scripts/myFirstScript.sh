@@ -7,3 +7,5 @@ cp $1 $2
 
 echo Details for $2
 ls -lh $2
+
+echo "complete"
