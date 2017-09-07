@@ -1,0 +1,15 @@
+
+
+block options
+	var themeName = ""
+	var title = ""
+
+doctype html
+html(lang="en" class=themeName)
+	include head.pug
+	body
+		include header.pug
+		main.site-main
+			block content
+		include footer.pug
+
