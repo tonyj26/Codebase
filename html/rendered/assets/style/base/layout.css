@@ -4,16 +4,15 @@ body, html {
   -webkit-flex-direction: column;
   flex-direction: column;
   padding: 0;
-  margin: 0;
+  margin: 0; 
   font-family: Roboto, sans-serif;
-  background-color: grey;
-  background-image: url "assets/images/background.png"; }
+  background-color: grey; }
 
 header {
   padding: 0;
   width: 80%;
   background-color: red;
-  margin: auto; }
+  margin: 0 auto;
 
 a {
   text-decoration: none;
@@ -52,6 +51,7 @@ footer {
   bottom: 0;
   background-color: red;
   text-align: center;
+	margin: 0 auto;
   padding: 0; }
 
 /*# sourceMappingURL=layout.css.map */
