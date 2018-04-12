@@ -1,0 +1,15 @@
+cabal: Entering directory '/tmp/cabal-tmp-4704/data-default-instances-containers-0.0.1'
+Configuring data-default-instances-containers-0.0.1...
+Preprocessing library for data-default-instances-containers-0.0.1..
+Building library for data-default-instances-containers-0.0.1..
+[1 of 1] Compiling Data.Default.Instances.Containers ( Data/Default/Instances/Containers.hs, dist/dist-sandbox-dfc6d41d/build/Data/Default/Instances/Containers.o )
+
+Data/Default/Instances/Containers.hs:37:1: error:
+    Could not find module `Data.Default.Class'
+    There are files missing in the `data-default-class-0.1.2.0' package,
+    try running 'ghc-pkg check'.
+    Use -v to see a list of the files searched for.
+   |
+37 | import Data.Default.Class
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+cabal: Leaving directory '/tmp/cabal-tmp-4704/data-default-instances-containers-0.0.1'

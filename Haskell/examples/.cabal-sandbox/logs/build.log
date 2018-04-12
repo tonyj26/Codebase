@@ -1,0 +1,197 @@
+
+package: cmdargs-0.10.20
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+flags: -testprog quotation
+dependencies: base-4.10.1.0 filepath-1.4.1.2 process-1.6.1.0
+              template-haskell-2.12.0.0 transformers-0.5.2.0
+install-outcome: InstallOk
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-0.7.1.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 data-default-class-0.1.2.0
+              data-default-instances-containers-0.0.1
+              data-default-instances-dlist-0.0.1
+              data-default-instances-old-locale-0.0.1
+install-outcome: DependencyFailed data-default-0.7.1.1
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-instances-containers-0.0.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 containers-0.5.10.2
+              data-default-class-0.1.2.0
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-instances-dlist-0.0.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 data-default-class-0.1.2.0
+              dlist-0.8.0.4
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-instances-old-locale-0.0.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 data-default-class-0.1.2.0
+              old-locale-1.0.0.7
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: haskell-src-exts-util-0.2.2
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 containers-0.5.10.2
+              data-default-0.7.1.1 haskell-src-exts-1.20.1 semigroups-0.18.4
+              transformers-0.5.2.0 uniplate-1.6.12
+install-outcome: DependencyFailed haskell-src-exts-util-0.2.2
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: hlint-2.1.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+flags: threaded gpl
+dependencies: aeson-1.2.4.0 ansi-terminal-0.7.1.1 base-4.10.1.0
+              bytestring-0.10.8.2 cmdargs-0.10.20 containers-0.5.10.2
+              cpphs-1.20.8 data-default-0.7.1.1 directory-1.3.0.2 extra-1.6.4
+              filepath-1.4.1.2 haskell-src-exts-1.20.1
+              haskell-src-exts-util-0.2.2 hscolour-1.24.4 process-1.6.1.0
+              refact-0.3.0.2 text-1.2.3.0 transformers-0.5.2.0 uniplate-1.6.12
+              unordered-containers-0.2.9.0 vector-0.12.0.1 yaml-0.8.28
+              base-4.10.1.0
+install-outcome: DependencyFailed hlint-2.1.1
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: hscolour-1.24.4
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 containers-0.5.10.2 base-4.10.1.0
+              containers-0.5.10.2
+install-outcome: InstallOk
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-0.7.1.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 data-default-class-0.1.2.0
+              data-default-instances-containers-0.0.1
+              data-default-instances-dlist-0.0.1
+              data-default-instances-old-locale-0.0.1
+install-outcome: DependencyFailed data-default-0.7.1.1
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-instances-containers-0.0.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 containers-0.5.10.2
+              data-default-class-0.1.2.0
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-instances-dlist-0.0.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 data-default-class-0.1.2.0
+              dlist-0.8.0.4
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: data-default-instances-old-locale-0.0.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 data-default-class-0.1.2.0
+              old-locale-1.0.0.7
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: haskell-src-exts-util-0.2.2
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0 containers-0.5.10.2
+              data-default-0.7.1.1 haskell-src-exts-1.20.1 semigroups-0.18.4
+              transformers-0.5.2.0 uniplate-1.6.12
+install-outcome: DependencyFailed haskell-src-exts-util-0.2.2
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: hlint-2.1.1
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+flags: threaded gpl
+dependencies: aeson-1.2.4.0 ansi-terminal-0.7.1.1 base-4.10.1.0
+              bytestring-0.10.8.2 cmdargs-0.10.20 containers-0.5.10.2
+              cpphs-1.20.8 data-default-0.7.1.1 directory-1.3.0.2 extra-1.6.4
+              filepath-1.4.1.2 haskell-src-exts-1.20.1
+              haskell-src-exts-util-0.2.2 hscolour-1.24.4 process-1.6.1.0
+              refact-0.3.0.2 text-1.2.3.0 transformers-0.5.2.0 uniplate-1.6.12
+              unordered-containers-0.2.9.0 vector-0.12.0.1 yaml-0.8.28
+              base-4.10.1.0
+install-outcome: DependencyFailed hlint-2.1.1
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: refact-0.3.0.2
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+dependencies: base-4.10.1.0
+install-outcome: InstallOk
+docs-outcome: NotTried
+tests-outcome: NotTried
+
+package: uniplate-1.6.12
+os: linux
+arch: x86_64
+compiler: ghc-8.2.2
+client: cabal-install-2.0.0.1
+flags: typeable_fingerprint separate_syb
+dependencies: base-4.10.1.0 containers-0.5.10.2 hashable-1.2.7.0
+              syb-0.7 unordered-containers-0.2.9.0
+install-outcome: BuildFailed
+docs-outcome: NotTried
+tests-outcome: NotTried
