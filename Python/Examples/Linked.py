@@ -7,11 +7,10 @@ class Linked(object):
     def add(self, data):
         temp = Node(data, None, None)
         if (self.head is None):
-            self.head = temp
-            self.tail = temp
+            self.head = self.tail = temp
         else:
             self.tail.setAfter(temp)
-            temp.setBefore(self.tail)
+            temp.prev
             self.tail = temp
 
     def find(self, data):
@@ -56,19 +55,10 @@ class Linked(object):
 
 class Node(object):
     # init
-    def __init__(self, data=None, before=None, after=None):
+    def __init__(self, data=None, prev=None, next=None):
         self.data = data
-        self.before = before
-        self.after = after
+        self.prev = prev
+        self.next = next
 
-    def element(self):
-        return self.data
-
-    def setBefore(self, before):
-        self.before = before
-
-    def setAfter(self, after):
-        self.after = after
-
-    def next(self):
-        return self.after
+    def __repr__(self):
+        return repr(self.data)
