@@ -2,31 +2,32 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import './index.css';
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
-
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
-      );
-  }
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+    );
 }
 
-ReactDom.render(
-  <Toggle />,
-  document.getElementById('root')
-);
+function WelcomeDialog() {
+  return (
+    <Dialog 
+      title="Welcome"
+      message="Thank you for visiting our spacecraft!" />
+    );
+}
+
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p> className="Dialog-message">
+        {props.message}
+      </p>
+    </FancyBorder>
+    );
+}
 
