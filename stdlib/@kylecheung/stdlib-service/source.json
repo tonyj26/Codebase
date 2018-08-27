@@ -1,0 +1,13 @@
+{
+  "name": "@kylecheung/stdlib-service",
+  "version": "0.0.0",
+  "publish": true,
+  "description": "",
+  "env": [
+    {
+      "name": "key",
+      "defaultValue": "",
+      "description": ""
+    }
+  ]
+}
