@@ -14,6 +14,11 @@ return [0, 1].
 #include <unordered_map>
 #include <string>
 
+/*
+single pass hash Solution
+Time Complexity O(n)
+Size Complexity O(n)
+*/
 class Solution {
 public:
   std::vector<int> twoSum(std::vector<int>& numbers, int target){
