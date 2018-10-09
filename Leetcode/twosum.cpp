@@ -28,8 +28,8 @@ public:
       int numberToFind = target - numbers[i];
 
       if (hash.find(numberToFind) != hash.end()) {
-        result.push_back(hash[numberToFind] + 1);
-        result.push_back(i + 1);
+        result.push_back(hash[numberToFind]);
+        result.push_back(i);
         return result;
       }
 
