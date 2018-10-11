@@ -22,6 +22,7 @@
 #include "helper.h"
 #include "builtin.h"
 #include "launch.h"
+#include "tokenize.h"
 
 #define READ "r"
 

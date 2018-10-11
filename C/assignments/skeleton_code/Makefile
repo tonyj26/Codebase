@@ -4,7 +4,7 @@ CMATH=-lm
 
 all: clean myOS 
 
-myOS: myOS.o shell.o helper.o launch.o builtin.o
+myOS: myOS.o shell.o helper.o launch.o builtin.o tokenize.o
 	$(CC) -o $@ $^ $(CMATH)
 
 myOS.o: myOS.c myOS.h
@@ -20,6 +20,9 @@ launch.o: launch.c launch.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 builtin.o: builtin.c builtin.h
+	$(CC) $(CFLAGS) -o $@ $<
+
+tokenize.o: tokenize.c tokenize.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 test: clean myOS
