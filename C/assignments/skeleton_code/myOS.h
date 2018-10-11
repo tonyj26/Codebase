@@ -15,6 +15,8 @@
 
 #include "shell.h"
 #include "helper.h"
+#include "builtin.h"
+#include "launch.h"
 
 #define SHELL "shell"
 
