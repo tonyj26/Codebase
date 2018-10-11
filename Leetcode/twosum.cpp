@@ -14,6 +14,11 @@ return [0, 1].
 #include <unordered_map>
 #include <string>
 
+/*
+single pass hash Solution
+Time Complexity O(n)
+Size Complexity O(n)
+*/
 class Solution {
 public:
   std::vector<int> twoSum(std::vector<int>& numbers, int target){
@@ -23,8 +28,8 @@ public:
       int numberToFind = target - numbers[i];
 
       if (hash.find(numberToFind) != hash.end()) {
-        result.push_back(hash[numberToFind] + 1);
-        result.push_back(i + 1);
+        result.push_back(hash[numberToFind]);
+        result.push_back(i);
         return result;
       }
 
