@@ -146,10 +146,6 @@ short execute_commands(char* line)
     &exit_shell
   };
 
-  if (args[0] == NULL) {
-    return TERMINATE;
-  }
-
   for (int i = 0; i < num_builtins(); i++){
     if (strcmp(args[0], builtin_str[i]) == 0) {
       return (*builtin_func[i])(args);
