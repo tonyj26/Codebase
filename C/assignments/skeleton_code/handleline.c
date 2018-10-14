@@ -4,7 +4,6 @@ struct command *handleline(char *line)
 {
   int nchunks = 1;
   int i;
-  char **args;
   int curchunk;
 
   //counts command chunks
