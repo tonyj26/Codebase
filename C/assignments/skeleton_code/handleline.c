@@ -1,6 +1,6 @@
 #include "handleline.h"
 
-struct command *hanndleline(char *line)
+struct command *handleline(char *line)
 {
   int nchunks = 1;
   int i;

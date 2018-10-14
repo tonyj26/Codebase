@@ -8,7 +8,8 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include "helper.h"
+#include "handleline.h"
 
-short launch(char**);
+short launch(struct command *);
 
 #endif

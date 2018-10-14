@@ -133,8 +133,7 @@ short execute_commands(char* line)
 {
   short status;
   //Your code goes here.
-  char **args;
-  args = tokenize(line);
+  struct command *cmds = handleline(line);
 
   char *builtin_str[] = {
     "cd",
@@ -147,10 +146,10 @@ short execute_commands(char* line)
   };
 
   for (int i = 0; i < num_builtins(); i++){
-    if (strcmp(args[0], builtin_str[i]) == 0) {
-      return (*builtin_func[i])(args);
+    if (strcmp(cmds[0].args[0], builtin_str[i]) == 0) {
+      return (*builtin_func[i])(cmds[0].args);
     }
   }
 
-  return launch(args);
+  return launch(cmds);
 }

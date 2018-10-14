@@ -12,7 +12,6 @@ struct command
   int nchunk;
 };
 
-
 struct command *handleline(char *);
 
 #endif
