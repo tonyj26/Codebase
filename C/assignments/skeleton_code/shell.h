@@ -23,6 +23,7 @@
 #include "builtin.h"
 #include "launch.h"
 #include "tokenize.h"
+#include "handleline.h"
 
 #define READ "r"
 
