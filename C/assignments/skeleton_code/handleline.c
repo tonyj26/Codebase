@@ -16,7 +16,7 @@ struct command *handleline(char *line)
     }
   }
   struct command *commands = malloc(nchunks * sizeof(struct command));
-  for (int curchunk = 0; curchunk < nchunks; curchunk++){
+  for (curchunk = 0; curchunk < nchunks; curchunk++){
     char *chunk;
     if (curchunk == 0){
       chunk = strtok(line, "|");
@@ -24,10 +24,30 @@ struct command *handleline(char *line)
     else {
       chunk = strtok(NULL, "|");
     }
-    commands[curchunk].args = tokenize(chunk);
-    commands[curchunk].nchunk = nchunks;
-  } 
 
+    char *ptr = chunk;
+    char last = ' ';
+    int toks = 1;
+    while(*ptr){
+      if (isspace(*ptr) && !isspace(last)) {
+        toks++;
+      }
+      last = *ptr;
+      ptr++;
+    }
+    commands[curchunk].args = malloc((toks + 1) * sizeof(char *));
+    commands[curchunk].argc = toks;
+    commands[curchunk].nchunks = nchunks;
+
+    tokenize(chunk, commands[curchunk].args, commands[curchunk].argc);
+  } 
   return commands;
 }
 
+void free_commands(struct command *cmds, int len)
+{
+  int i;
+  for (i = 0; i < len; i++) {
+    free(cmds[i].args);
+  }
+}

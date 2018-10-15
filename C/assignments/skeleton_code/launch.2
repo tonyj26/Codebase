@@ -1,0 +1,36 @@
+#include "launch.h"
+
+
+short launch(struct command *cmd)
+{
+  pid_t pid;
+  int status;
+
+  if (cmd[0].nchunks == 1){
+    pid = fork();
+
+    if(pid == 0){
+
+      if(execvp(cmd[0].args[0], cmd[0].args) == -1){
+        perror("shell");
+        exit(1);
+      }
+      free_commands(cmd, cmd[0].nchunks);
+      free(cmd);
+    }
+    else if (pid < 0){
+      perror("shell");
+      exit(1);
+    }
+    else{
+      wait(&status);
+    }
+  }
+
+  int p1[2];
+  int p2[2];
+
+  if (pipe(p1) < 0){
+    perror("pipe");
+  }
+}

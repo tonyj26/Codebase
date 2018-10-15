@@ -3,33 +3,24 @@
 #define TOK_BUFSIZE 64
 #define TOK_DELIM " \t\r\n\a"
 
-char **tokenize(char *line)
+int tokenize(char *line, char *args[], int maxargs)
 {
-  int bufsize = TOK_BUFSIZE, position = 0;
-  char **tokens = malloc(bufsize * sizeof(char*));
-  char *token;
-
-  if (!tokens) {
-    fprintf(stderr, "allocation error\n");
-    exit(EXIT_FAILURE);
+  int n = 0;
+  while (*line && isspace(*line)){
+    line++;
   }
 
-  token = strtok(line, TOK_DELIM);
-  while(token != NULL) {
-    tokens[position] = token;
-    position++;
-
-    if(position >= bufsize) {
-      bufsize += TOK_BUFSIZE;
-      tokens = realloc(tokens,bufsize * sizeof(char*));
-      if(!tokens) {
-        fprintf(stderr, "allocation error\n");
-        exit(EXIT_FAILURE);
-      }
+  while(*line && n < maxargs)
+  {
+    args[n++] = line;
+    while (*line && !isspace(*line)){
+      line++;
     }
-    token = strtok(NULL, TOK_DELIM);
+    while(*line && isspace(*line)){
+      *(line++) = 0;
+    }
   }
-  tokens[position] = NULL;
-  return tokens;
+  args[n] = NULL;
+  return n;
 }
 

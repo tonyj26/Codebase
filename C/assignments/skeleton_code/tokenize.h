@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
-char **tokenize(char *);
+int tokenize(char *, char *[], int);
 
 #endif

@@ -21,7 +21,7 @@ int cd(char **args)
     fprintf(stderr, "expected argument to \"cd\"\n");
   } else {
     if(chdir(args[1]) != 0) {
-      perror("sh");
+      perror("shell");
     }
   }
   return 1;
