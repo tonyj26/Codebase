@@ -12,6 +12,7 @@ struct command
   char **args;
   int argc;
   int nchunks;
+  int fds[2];
 };
 
 struct command *handleline(char *);

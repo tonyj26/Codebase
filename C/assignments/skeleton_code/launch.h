@@ -11,5 +11,6 @@
 #include "handleline.h"
 
 short launch(struct command *);
+short exec_com(struct command , int (*)[2]);
 
 #endif

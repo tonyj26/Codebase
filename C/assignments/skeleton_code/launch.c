@@ -2,69 +2,81 @@
 
 short launch(struct command *cmd) 
 {
-  short status;
-  int fd[2];
-  pid_t pid, wpid, p2;
+  int status;
   int i;
 
-  for (i = 0; i < cmd[0].nchunks; i++){
-    if(pipe(fd) < 0){
-      perror("pipe error");
-    }
-
-    pid = fork();
-
-    //child
-    if(pid == 0){
-
-      close(fd[1]);
-      if (dup2(fd[0], STDIN_FILENO) < 0){
-        perror("shell can't dup");
-        exit(1);
-      }
-      close(fd[0]);
-
-      if (execvp(cmd[i].args[0], cmd[i].args) == -1){
-        perror(" command error fork");
-      }
-      exit(EXIT_FAILURE);
-    } else if(pid < 0){
-      //error forking 
-      perror("actually fork");
-    } else {
-      //parent
-      p2 = fork();
-
-      if (p2 < 0){
-        perror("fork");
-      }
-
-      if (p2 == 0) {
-
-        close(fd[0]);
-        if(dup2(fd[1],STDOUT_FILENO) < 0){
-          perror("can't dup");
-          exit(1);
-        }
-        close(fd[1]);
-
-
-        if (execvp(cmd[i].args[0], cmd[i].args) == -1){
-          perror("command error");
-        }
-      }
-      else {
-        do {
-          int childstatus;
-          wpid = waitpid(pid, &childstatus, 0);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-      }
-      do {
-        int childstatus;
-        wpid = waitpid(pid, &childstatus, 0);
-      } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
+  if (cmd[0].nchunks == 1){
+    cmd[0].fds[STDIN_FILENO] = STDIN_FILENO;
+    cmd[0].fds[STDOUT_FILENO] = STDOUT_FILENO;
+    status = exec_com(cmd[0], NULL);
   }
-  return 1;
+  else {
+    int pipe_count = cmd[0].nchunks -1;
+
+    int (*pipes)[2] = calloc(pipe_count * sizeof(int[2]), 1);
+
+    if(pipes == NULL){
+      perror("pipe");
+    }
+
+    cmd[0].fds[STDIN_FILENO] = STDIN_FILENO;
+    for (i = 1; i < cmd[0].nchunks; i++){
+      pipe(pipes[i-1]);
+      cmd[i-1].fds[STDOUT_FILENO] = pipes[i-1][1];
+      cmd[i].fds[STDIN_FILENO] = pipes[i-1][0];
+    }
+    cmd[pipe_count].fds[STDOUT_FILENO] = STDOUT_FILENO;
+
+    for (i = 0; i < cmd[0].nchunks; i++){
+      status = exec_com(cmd[i], pipes);
+    }
+
+    for (i = 0; i < pipe_count; i++) {
+      close(pipes[i][0]);
+      close(pipes[i][1]);
+    }
+
+    for (i = 0; i < cmd[0].nchunks; ++i){
+      wait(NULL);
+    }
+
+    free(pipes);
+  }
+  return status;
 }
 
+short exec_com(struct command cmd, int (*pipes)[2])
+{
+  pid_t child;
+
+  child = fork();
+
+  //child
+  if (child == 0){
+    int input_fd = cmd.fds[0];
+    int output_fd = cmd.fds[1];
+    if (input_fd != -1 && input_fd != STDIN_FILENO){
+      dup2(input_fd, STDIN_FILENO);
+    }
+
+    if (output_fd != -1 && output_fd != STDOUT_FILENO){
+      dup2(output_fd,STDOUT_FILENO);
+    }
+
+    if (pipes != NULL) {
+      int num_pipes = cmd.nchunks - 1;
+
+      for(int i = 0; i < num_pipes; i++){
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+      }
+    }
+
+    if(execvp(cmd.args[0], cmd.args) == -1){
+      perror("shell");
+      exit(1);
+    }      
+    free(pipes);
+  }
+  return child;
+}

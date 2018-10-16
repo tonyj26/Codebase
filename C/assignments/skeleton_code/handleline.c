@@ -5,6 +5,7 @@ struct command *handleline(char *line)
   int nchunks = 1;
   int i;
   int curchunk;
+  char *saveptr;
 
   //counts command chunks
   for (i = 0; i < strlen(line); i++){
@@ -19,10 +20,10 @@ struct command *handleline(char *line)
   for (curchunk = 0; curchunk < nchunks; curchunk++){
     char *chunk;
     if (curchunk == 0){
-      chunk = strtok(line, "|");
+      chunk = strtok_r(line, "|", &saveptr);
     }
     else {
-      chunk = strtok(NULL, "|");
+      chunk = strtok_r(NULL, "|", &saveptr);
     }
 
     char *ptr = chunk;
@@ -41,6 +42,7 @@ struct command *handleline(char *line)
 
     tokenize(chunk, commands[curchunk].args, commands[curchunk].argc);
   } 
+
   return commands;
 }
 
