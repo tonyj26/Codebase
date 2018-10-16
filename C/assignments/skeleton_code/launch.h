@@ -9,6 +9,8 @@
 #include <sys/types.h>
 #include "helper.h"
 #include "handleline.h"
+#include <sys/stat.h>
+#include <fcntl.h>
 
 short launch(struct command *);
 short exec_com(struct command , int (*)[2]);
