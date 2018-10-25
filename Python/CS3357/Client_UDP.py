@@ -1,17 +1,38 @@
 #!/usr/bin/env python3
 
+# Client_UDP.py
+# Kyle Cheung
+# Commands: "exit", "What is the current date and time?"
+
 import socket
 
-TCP_IP = '127.0.0.1'
-TCP_PORT = 5005
+# specified port and ip address
+UDP_IP = '127.0.0.1'
+UDP_PORT = 5005
 BUFFER_SIZE = 1024
-print("Enter Message: ", end="")
-MESSAGE = str.encode(input())
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((TCP_IP, TCP_PORT))
-s.send(MESSAGE)
-data = s.recv(BUFFER_SIZE)
+# creates client socket
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect((UDP_IP, UDP_PORT))
+while True:
+
+    # get user message
+    print("Enter Message: ", end="")
+    msg = input()
+
+    # closes client if exit command
+    if (msg == "exit"):
+
+        # encodes the string and sends it to server
+        s.send(str.encode(msg))
+        s.close()
+        break
+    s.send(str.encode(msg))
+
+    # response from server
+    data = s.recv(BUFFER_SIZE)
+    print("received data: ", data)
+
+# close socket
 s.close()
 
-print("received data:", data)

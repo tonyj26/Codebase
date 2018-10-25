@@ -1,28 +1,49 @@
 #!/usr/bin/env python3
 
+# Server_UDP.py
+# Kyle Cheung
+# Commands: "exit", "What is the current date and time?"
+
 import socket 
 import datetime
 
-print("TCP_IP: ", end="")
-TCP_IP = input()            # localhost: '127.0.0.1'
-print("TCP_PORT: ", end="") 
-TCP_PORT = int(input())     # default port: 5005
+# grabs ip and port number from user
+print("UDP_IP: ", end="")
+UDP_IP = input()            # localhost: '127.0.0.1'
+print("UDP_PORT: ", end="") 
+UDP_PORT = int(input())     # default port: 5005
 BUFFER_SIZE = 1024
 
-s = socket.socket()         # Defaults to socket.AF_INET and socket.SOCK_STREAM
-s.bind((TCP_IP, TCP_PORT))
-s.listen(1)
-print(f"listening on TCP_IP: {TCP_IP}, TCP_PORT: {TCP_PORT} .., ")
+# creates the socket using SOCK_DGRAM as the socket type(UDP)
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Creates a UDP socket 
+s.bind((UDP_IP, UDP_PORT))
+print(f"listening on UDP_IP: {UDP_IP}, UDP_PORT: {UDP_PORT} .., ")
 
-conn, addr = s.accept()
-print ('Connection Address:', addr)
 while True:
-    data = conn.recv(BUFFER_SIZE)
+    print("Waiting to receive Message")
+
+    # breaks up the data and the address from received datagram
+    data, addr = s.recvfrom(BUFFER_SIZE)
+    print('Connection Address:', addr)
     if not data: break
+
+    # compare received data to valid commands
     if (bytes.decode(data) == "What is the current date and time?"):
         print ("received data:", data)
-        print("Current Date and Time - ", datetime.datetime.now().strftime("%m/%d/%y %H:%M:%S"))
+        toSend = "Current Date and Time - " + \
+            str(datetime.datetime.now().strftime("%m/%d/%y %H:%M:%S"))
+        # sends response
+        s.sendto(str.encode(toSend), addr)
 
-    else: print("Invalid Command")
-    conn.send(data) #echo
-conn.close()
+        # if exit command is sent
+    elif (bytes.decode(data) == "exit"):
+        s.close()
+        break
+
+    else: 
+        # if command is invalid
+        print("Invalid Command")
+        s.sendto(str.encode("Invalid Command"), addr)
+
+# close connection
+s.close()

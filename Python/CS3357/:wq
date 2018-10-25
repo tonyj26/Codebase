@@ -2,7 +2,6 @@
 
 # Client_TCP.py
 # Kyle Cheung
-# Commands: "exit", "What is the current date and time?"
 
 import socket
 
@@ -16,13 +15,9 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((TCP_IP, TCP_PORT))
 
 while True:
-    # gets user input
     print("Enter Message: ", end="")
     msg = input()
-
-    # if exit command break close connection
     if (msg == "exit"):
-        s.send(str.encode(msg))
         s.close()
         break
     s.send(str.encode(msg))
