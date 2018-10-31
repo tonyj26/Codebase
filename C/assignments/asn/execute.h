@@ -18,6 +18,8 @@
 
 #include "helper.h"
 
+#define EXIT "exit"
+
 short execute(int, char***, int, int);
 
 #endif

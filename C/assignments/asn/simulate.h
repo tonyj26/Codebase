@@ -22,5 +22,6 @@
 #define NUMBER_OF_THREADS 4
 
 void simulate(int, linked_stack_t*);
+void *do_work(void *input);
 
 #endif

@@ -13,7 +13,6 @@ BUFFER_SIZE = 1024
 
 # creates client socket
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect((UDP_IP, UDP_PORT))
 while True:
 
     # get user message
@@ -25,7 +24,6 @@ while True:
 
         # encodes the string and sends it to server
         s.send(str.encode(msg))
-        s.close()
         break
     s.send(str.encode(msg))
 
@@ -34,5 +32,4 @@ while True:
     print("received data: ", data)
 
 # close socket
-s.close()
 

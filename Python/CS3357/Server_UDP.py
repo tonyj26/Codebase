@@ -16,7 +16,6 @@ BUFFER_SIZE = 1024
 
 # creates the socket using SOCK_DGRAM as the socket type(UDP)
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Creates a UDP socket 
-s.bind((UDP_IP, UDP_PORT))
 print(f"listening on UDP_IP: {UDP_IP}, UDP_PORT: {UDP_PORT} .., ")
 
 while True:
@@ -37,7 +36,6 @@ while True:
 
         # if exit command is sent
     elif (bytes.decode(data) == "exit"):
-        s.close()
         break
 
     else: 
@@ -46,4 +44,3 @@ while True:
         s.sendto(str.encode("Invalid Command"), addr)
 
 # close connection
-s.close()
