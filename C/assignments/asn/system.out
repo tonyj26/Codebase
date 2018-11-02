@@ -1,71 +1,65 @@
+Starting job #1
 Unable to run job #2. Memory requirements exceed system capabilities
 Starting job #3
 Allocating 10
-Starting job #1
+Unable to run job #4. Insufficient memory resources
 Allocating 110
-Starting job #4
-Allocating 20
-Memory at 10
-Starting job #3
-Memory at 10
+Memory at 30
+Memory at 30
 Job #1 completed
 Deallocating 110
-Memory at 120
-Memory at 120
-Starting job #4
+Memory at 140
+Running job #3
 Job #3 completed
 Deallocating 10
-Memory at 130
-Job #4 completed
-Deallocating 20
 Memory at 150
+Starting job #6
+Unable to run job #7. Memory requirements exceed system capabilities
+Allocating 50
 Starting job #5
 Allocating 80
-Starting job #6
-Allocating 10
-Unable to run job #8. Insufficient memory resources
-Starting job #7
-Allocating 10
-Memory at 50
+Starting job #8
+Allocating 90
+Memory at -70
+Running job #6
+Memory at -70
 Job #5 completed
 Deallocating 80
-Memory at 130
-Memory at 130
-Starting job #6
-Memory at 130
-Starting job #7
-Starting job #6
-Starting job #7
+Memory at 10
+Memory at -70
+Job #8 completed
+Deallocating 90
+Memory at 100
+Running job #6
 Job #6 completed
-Deallocating 10
-Memory at 140
-Job #7 completed
-Deallocating 10
+Deallocating 50
 Memory at 150
-Starting job #11
-Starting job #12
-Unable to run job #10. Insufficient memory resources
 Unable to run job #9. Memory requirements exceed system capabilities
-Allocating 50
-Allocating 30
-Memory at 70
-Starting job #12
-Memory at 70
+Starting job #11
+Allocating 140
+Unable to run job #12. Insufficient memory resources
+Unable to run job #10. Insufficient memory resources
+Memory at 10
 Job #11 completed
-Deallocating 30
+Deallocating 140
+Memory at 150
+Starting job #4
+Allocating 80
+Starting job #12
+Starting job #10
+Allocating 150
+Allocating 50
+Memory at -130
+Running job #4
+Memory at -130
+Running job #12
+Memory at -130
+Job #10 completed
+Deallocating 150
+Memory at 20
+Job #4 completed
+Deallocating 80
 Memory at 100
 Job #12 completed
 Deallocating 50
-Memory at 150
-Starting job #8
-Allocating 90
-Starting job #10
-Allocating 150
-Memory at -90
-Job #8 completed
-Deallocating 90
-Memory at 0
-Memory at 0
-Job #10 completed
-Deallocating 150
 Memory at 150

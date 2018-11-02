@@ -7,9 +7,12 @@
 int memory, max_memory;
 FILE *fp;
 linked_stack_t *jobs;
+
+// additional print statements 
 char *allocate = "Allocating %d\n";
 char *deallocate = "Deallocating %d\n";
 char *memat = "Memory at %d\n";
+char *running = "Running job #%d\n";
 
 void simulate(int memory_value, linked_stack_t *stack)
 {
@@ -24,22 +27,26 @@ void simulate(int memory_value, linked_stack_t *stack)
     for(i = 0; i < NUMBER_OF_THREADS; i++){
 
       if (jobs->head != NULL){
-        pthread_create(&thread[i], NULL, do_work, pop(jobs));
+        if(pthread_create(&thread[i], NULL, do_work, pop(jobs)) != 0){
+          perror("Thread Error");
+        }
       }  
       else{
         break;
       }
     }
 
+    // join all the threads
     for( k = 0; k < i; k++){
       pthread_join(thread[k], NULL);
     }
-    i = 0;
   }
 
+  // close open file
   fclose(fp);
 }
 
+// thread function 
 void *do_work(void *input)
 {
 
@@ -70,7 +77,7 @@ void *do_work(void *input)
 
     // simulate scheduling
     while (job.required_time > 0){
-      print_starting(fp, job.number);
+      print(fp, running, job.number);
       sleep(2);
       job.required_time -= 2;
     }
