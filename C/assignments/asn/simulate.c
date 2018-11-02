@@ -9,11 +9,11 @@ FILE *fp;
 linked_stack_t *jobs;
 char *allocate = "Allocating %d\n";
 char *deallocate = "Deallocating %d\n";
+char *memat = "Memory at %d\n";
 
 void simulate(int memory_value, linked_stack_t *stack)
 {
-  int i;
-  int k;
+  int i, k;
   jobs = stack;
   max_memory = memory_value;
   memory = max_memory;
@@ -34,6 +34,7 @@ void simulate(int memory_value, linked_stack_t *stack)
     for( k = 0; k < i; k++){
       pthread_join(thread[k], NULL);
     }
+    i = 0;
   }
 
   fclose(fp);
@@ -42,29 +43,43 @@ void simulate(int memory_value, linked_stack_t *stack)
 void *do_work(void *input)
 {
 
+  //cast at the start to dereference
+  job_t job = *(job_t*)input;
+
   // memory exceeed, drop job
-  if(memory > max_memory){
-    print_exceed_memory(fp, ((job_t*)input)->number);
+  if(job.required_memory > max_memory){
+    print_exceed_memory(fp, job.number);
   }
 
   //insufficient memory, push onto stack
-  if((((job_t*)input)->required_memory) > memory) {
-    print_insufficient_memory(fp, ((job_t*)input)->number);
+  else if(job.required_memory > memory) {
+    print_insufficient_memory(fp, job.number);
     push(jobs, input);
   }
 
   // enough memory available
   else{
 
-    print_starting(fp, ((job_t*)input)->number);
-    print(fp, allocate, ((job_t*)input)->required_memory);
-    sleep(((job_t*)input)->required_time);
-    memory -= ((job_t*)input)->required_memory;
-    ((job_t*)input)->required_time -= ((job_t*)input)->required_time;
+    print_starting(fp, job.number);
+    memory -= job.required_memory;
+    print(fp, allocate, job.required_memory);
+    sleep(2);
+    job.required_time -= 2;
 
-    print_completed(fp, ((job_t*)input)->number);
-    print(fp, deallocate, ((job_t*)input)->required_memory);
-    memory += ((job_t*)input)->required_memory;
+    print(fp, memat, memory);
+
+    // simulate scheduling
+    while (job.required_time > 0){
+      print_starting(fp, job.number);
+      sleep(2);
+      job.required_time -= 2;
+    }
+
+    print_completed(fp, job.number);
+    memory += job.required_memory;
+    print(fp, deallocate, job.required_memory);
+
+    print(fp ,memat, memory);
   }
 }
 
