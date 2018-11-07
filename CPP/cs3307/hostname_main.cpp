@@ -1,12 +1,12 @@
-//hostname_main.cpp
+/*
+Kyle Cheung
+hostname_main.cpp
+October 4, 2018
+*/
 #include "hostname.h"
-#include <iostream>
-
-using namespace hostnamespace;
 
 int main() {
   hostname_class host;
   host.to_string();
   return 0;
 }
-
