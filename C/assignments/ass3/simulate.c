@@ -1,9 +1,9 @@
 /******************************************************************************
-* 
+*
 * Name: 	Zaid Albirawi
 * Email: 	zalbiraw@uwo.ca
 *
-* simulate.c 
+* simulate.c
 *
 ******************************************************************************/
 
@@ -45,19 +45,19 @@ void* run(void *j)
 		* runs job
 		**********************************************************************/
 		if (required_memory <= memory) execute_job(job);
-  
+
 
 		/**********************************************************************
 		* checks if the memory requested exceeds current available memory
 		**********************************************************************/
-		else 
+		else
 		{
 			/******************************************************************
-			* inform user that the job doesn't have enough resources at the 
+			* inform user that the job doesn't have enough resources at the
 			* moment, add the job back to the list
 			******************************************************************/
 			print_insufficient_memory(fp, number);
-			
+
 			enqueue(jobs, job);
 		}
 
@@ -69,7 +69,7 @@ void* run(void *j)
 }
 
 /******************************************************************************
-* 
+*
 ******************************************************************************/
 void simulate(int memory_value, int mode_value, int time_quantum_value,
 	d_linked_list_t *list)
@@ -105,8 +105,8 @@ void simulate(int memory_value, int mode_value, int time_quantum_value,
 	* create threads and run jobs
 	**************************************************************************/
 
-  //create mutex 
-  
+  //create mutex
+
   if(pthread_mutex_init(&lock, NULL) != 0)
   {
     printf("mutex init failed\n");
@@ -140,6 +140,7 @@ void execute_job(job_t *job) {
 	* inform user that the job started executing and allocate mrmory
 	******************************************************************/
 	print_starting(fp, number);
+  
   pthread_mutex_lock(&lock);
 	allocate_memory(required_memory);
   pthread_mutex_unlock(&lock);

@@ -44,7 +44,7 @@ struct command *handleline(char *line)
     commands[curchunk].nchunks = nchunks;
 
     tokenize(chunk, commands[curchunk].args, commands[curchunk].argc);
-  } 
+  }
 
   return commands;
 }

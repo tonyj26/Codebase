@@ -1,24 +1,30 @@
 #include "launch.h"
 
-short launch(struct command *cmd) 
+short launch(struct command *cmd)
 {
   int status;
   int i;
 
   if (cmd[0].nchunks == 1){
+    // set file descriptors
     cmd[0].fds[STDIN_FILENO] = STDIN_FILENO;
     cmd[0].fds[STDOUT_FILENO] = STDOUT_FILENO;
+
+    // if only 1 command then execute with no pipes
     status = exec_com(cmd[0], NULL);
   }
   else {
     int pipe_count = cmd[0].nchunks -1;
 
+    // allocate memory for pipes
     int (*pipes)[2] = calloc(pipe_count * sizeof(int[2]), 1);
 
+    // err check
     if(pipes == NULL){
       perror("pipe");
     }
 
+    // set pipes read write for each command chunk
     cmd[0].fds[STDIN_FILENO] = STDIN_FILENO;
     for (i = 1; i < cmd[0].nchunks; i++){
       pipe(pipes[i-1]);
@@ -27,15 +33,18 @@ short launch(struct command *cmd)
     }
     cmd[pipe_count].fds[STDOUT_FILENO] = STDOUT_FILENO;
 
+    // exec each chunk
     for (i = 0; i < cmd[0].nchunks; i++){
       status = exec_com(cmd[i], pipes);
     }
 
+    // close pipes
     for (i = 0; i < pipe_count; i++) {
       close(pipes[i][0]);
       close(pipes[i][1]);
     }
 
+    // wait for each child to finish
     for (i = 0; i < cmd[0].nchunks; ++i){
       wait(NULL);
     }
@@ -49,6 +58,7 @@ short exec_com(struct command cmd, int (*pipes)[2])
 {
   pid_t child;
 
+  // fork each command
   child = fork();
 
   //child
@@ -75,7 +85,7 @@ short exec_com(struct command cmd, int (*pipes)[2])
     if(execvp(cmd.args[0], cmd.args) == -1){
       perror("shell");
       exit(1);
-    }      
+    }
     free(pipes);
   }
   return child;
