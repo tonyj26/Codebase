@@ -41,3 +41,4 @@ let g:syntastic_html_checkers = ['eslint', 'gjslint']
 let Tex_FoldedSections=""
 let Tex_FoldedEnvironments=""
 let Tex_FoldedMisc=""
+
