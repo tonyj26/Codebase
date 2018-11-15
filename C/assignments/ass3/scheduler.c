@@ -1,9 +1,9 @@
 /******************************************************************************
- * 
+ *
  * Name: 	Zaid Albirawi
  * Email: 	zalbiraw@uwo.ca
  *
- * scheduler.c 
+ * scheduler.c
  *
  ******************************************************************************/
 
@@ -33,14 +33,14 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
       }
     case SJF:
       {
-        // sort list into shortest job first 
+        // sort list into shortest job first
         // temp list
         d_linked_list_t *temp_list = init_d_linked_list();
         while (jobs->size != 0){
           // first job
           if ( j == NULL){
             j = dequeue(jobs);
-            enqueue(temp_list, j); 
+            enqueue(temp_list, j);
           }
           else {
             job_t *temp = dequeue(jobs);
@@ -58,6 +58,7 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
     case RR:
       {
         //TODO
+        j = dequeue(jobs);
         break;
       }
     default:
@@ -68,5 +69,3 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
 
   return j;
 }
-
-
