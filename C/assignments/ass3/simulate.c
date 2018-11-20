@@ -156,9 +156,6 @@ void simulate(int memory_value, int mode_value, int time_quantum_value,
         pthread_mutex_lock(&lock);
         deallocate_memory(required_memory);
         pthread_mutex_unlock(&lock);
-
-
-
       }
       else {
         job->required_time -= time_quantum;
