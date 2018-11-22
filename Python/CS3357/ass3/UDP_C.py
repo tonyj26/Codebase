@@ -41,9 +41,9 @@ def make_pkt(ack, seq, data):
 
 def udt_send(data):
     sock.sendto(data, (UDP_IP, UDP_PORT))
+    print("sent packet", data)
 
 def rdt_send(data):
-
     global SEQ
     cur_seq = SEQ
 
@@ -53,25 +53,22 @@ def rdt_send(data):
         addr = ''
 
         sent_time = time.time() * 1000
-        print("before timeout")
 
         while resp == '' and time.time() * 1000 - sent_time < 9:
             resp, addr = sock.recvfrom(4096)
-            print("got resp")
 
         if resp == '':
+            print("timer expired")
             continue
 
         # the packet is received, check if gucci
 
         resp_packet = unpacker.unpack(resp)
-        print("unpack")
-        
+
         # wrong sequence number
         while resp_packet[1] != cur_seq:
             continue
 
-        print("incr seq")
         SEQ = (SEQ + 1) % 2
 
 
@@ -79,6 +76,3 @@ def rdt_send(data):
 # run stuff
 for data in packet_list:
     rdt_send(make_pkt(ACK, SEQ, data))
-
-
-
