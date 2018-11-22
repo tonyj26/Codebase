@@ -8,6 +8,16 @@ UDP_IP = "127.0.0.1"
 UDP_PORT = 5005
 unpacker = struct.Struct('I I 8s 32s')
 
+def make_ack(ack, seq):
+    values = (ack, seq)
+    ACK_DATA = struct.Struct('I I')
+    packed_data = ACK_DATA.pack(*values)
+    chksum = bytes(hashlib.md5(packed_data).hexdigest(), encoding="UTF-8")
+    pack_values = (ack, seq, chksum)
+    packet_struct = struct.Struct('I I 32s')
+    packet_data = packet_struct.pack(*pack_values)
+    return packet_data
+
 
 def check_chksum(packet):
     values = (packet[0], packet[1], packet[2])
@@ -33,7 +43,10 @@ def listen(ip, port):
         
         if check_chksum(UDP_Packet) == True:
             print('CheckSums Match, Packet OK')
+            ackresp = make_ack(1, UDP_Packet[1])
+            sock.sendto(ackresp, addr)
         else:
             print('Checksums Do Not Match, Packet Corrupt')
+            time.sleep(.009)
 
 listen(UDP_IP, UDP_PORT)

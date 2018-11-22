@@ -13,7 +13,7 @@ ACK = 0
 SEQ = 0
 
 
-packet_list = ['NCC-1701', 'NCC-1664', 'NCC-1017']
+packet_list = [b'NCC-1701', b'NCC-1664', b'NCC-1017']
 
 print("UDP target IP:" ,UDP_IP)
 print("UDP target Port:", UDP_PORT)
@@ -43,19 +43,42 @@ def udt_send(data):
     sock.sendto(data, (UDP_IP, UDP_PORT))
 
 def rdt_send(data):
-    udt_send(data)
-    start_time = time.perf_counter()
 
-    #while(start_time < TIMEOUT):
-    #    resp, addr = sock.recvfrom(4096)
-    #    rcvpkt = unpacker.unpack(resp)
-    #    cur_seq = SEQ
-    #    resp_seq = rcvpkt[1]
+    global SEQ
+    cur_seq = SEQ
+
+    while cur_seq == SEQ:
+        udt_send(data)
+        resp = ''
+        addr = ''
+
+        sent_time = time.time() * 1000
+        print("before timeout")
+
+        while resp == '' and time.time() * 1000 - sent_time < 9:
+            resp, addr = sock.recvfrom(4096)
+            print("got resp")
+
+        if resp == '':
+            continue
+
+        # the packet is received, check if gucci
+
+        resp_packet = unpacker.unpack(resp)
+        print("unpack")
+        
+        # wrong sequence number
+        while resp_packet[1] != cur_seq:
+            continue
+
+        print("incr seq")
+        SEQ = (SEQ + 1) % 2
 
 
 
+# run stuff
+for data in packet_list:
+    rdt_send(make_pkt(ACK, SEQ, data))
 
-data = make_pkt(ACK, SEQ, b'NCC-1701')
-rdt_send(data)
 
 

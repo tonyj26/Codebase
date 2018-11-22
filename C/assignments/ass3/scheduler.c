@@ -17,7 +17,8 @@
  */
 
 job_t *get_next_job(int mode, d_linked_list_t* jobs) {
-  job_t *j = NULL;
+  job_t *j;
+  int stack_length, i;
 
   switch (mode){
     case FCFS:
@@ -35,6 +36,25 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
       {
         // sort list into shortest job first
         // temp list
+
+        job_t *temp;
+        j = dequeue(jobs);
+        stack_length = jobs->size;
+
+
+        for (i = 0; i < stack_length; i++){
+          temp = dequeue(jobs);
+          if (temp->required_time < j->required_time){
+            enqueue(jobs, j);
+            j = temp;
+          }
+          else {
+            enqueue(jobs, temp);
+          }
+        }
+
+  /*
+
         d_linked_list_t *temp_list = init_d_linked_list();
         while (jobs->size != 0){
           // first job
@@ -42,7 +62,7 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
             j = dequeue(jobs);
             enqueue(temp_list, j);
           }
-          else {
+          if (jobs->size != 0) {
             job_t *temp = dequeue(jobs);
             enqueue(temp_list, temp);
 
@@ -53,6 +73,7 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
         }
         jobs = temp_list;
 
+        */
         break;
       }
     case RR:
