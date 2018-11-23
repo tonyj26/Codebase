@@ -53,27 +53,6 @@ job_t *get_next_job(int mode, d_linked_list_t* jobs) {
           }
         }
 
-  /*
-
-        d_linked_list_t *temp_list = init_d_linked_list();
-        while (jobs->size != 0){
-          // first job
-          if ( j == NULL){
-            j = dequeue(jobs);
-            enqueue(temp_list, j);
-          }
-          if (jobs->size != 0) {
-            job_t *temp = dequeue(jobs);
-            enqueue(temp_list, temp);
-
-            if(temp->required_time < j->required_time){
-              j = temp;
-            }
-          }
-        }
-        jobs = temp_list;
-
-        */
         break;
       }
     case RR:

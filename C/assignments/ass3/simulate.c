@@ -145,7 +145,6 @@ void execute_job(job_t *job) {
   allocate_memory(required_memory);
   pthread_mutex_unlock(&lock);
 
-<<<<<<< HEAD
   /******************************************************************
    * run the job
    ******************************************************************/
@@ -153,7 +152,7 @@ void execute_job(job_t *job) {
   if (mode == RR){
     if (job->required_time <= time_quantum){
 =======
-    /******************************************************************
+    ******************************************************************
     * run the job
     ******************************************************************/
     if (mode == RR){
@@ -172,15 +171,12 @@ void execute_job(job_t *job) {
       }
     }
     else {
->>>>>>> b56265e6c248f0280b18cf375b90ba60d797d489
       sleep(job->required_time);
       print_completed(fp, number);
       free(job);
       pthread_mutex_lock(&lock);
       deallocate_memory(required_memory);
       pthread_mutex_unlock(&lock);
-
-
 
     }
     else {
@@ -194,7 +190,6 @@ void execute_job(job_t *job) {
     }
   }
   else {
-    */
     sleep(job->required_time);
 
     /******************************************************************
