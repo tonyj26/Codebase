@@ -61,7 +61,9 @@ void* run(void *j)
       enqueue(jobs, job);
     }
 
+    pthread_mutex_lock(&lock);
     job = get_next_job(mode, jobs);
+    pthread_mutex_unlock(&lock);
 
   }
 
@@ -136,75 +138,43 @@ void execute_job(job_t *job) {
   int number = job->number,
       required_memory = job->required_memory;
 
-  /******************************************************************
-   * inform user that the job started executing and allocate mrmory
-   ******************************************************************/
-  print_starting(fp, number);
+  // RR 
+  if ( mode == RR ) {
+    pthread_mutex_lock(&lock);
+    print_starting(fp, number);
+    allocate_memory(required_memory);
 
-  pthread_mutex_lock(&lock);
-  allocate_memory(required_memory);
-  pthread_mutex_unlock(&lock);
-
-  /******************************************************************
-   * run the job
-   ******************************************************************/
-  /*
-  if (mode == RR){
     if (job->required_time <= time_quantum){
-=======
-    ******************************************************************
-    * run the job
-    ******************************************************************/
-    if (mode == RR){
-      if (job->required_time <= time_quantum){
-        sleep(job->required_time);
-        print_completed(fp, number);
-        free(job);
-        pthread_mutex_lock(&lock);
-        deallocate_memory(required_memory);
-        pthread_mutex_unlock(&lock);
-      }
-      else {
-        job->required_time -= time_quantum;
-        sleep(time_quantum);
-        enqueue(jobs, job);
-      }
-    }
-    else {
       sleep(job->required_time);
       print_completed(fp, number);
       free(job);
-      pthread_mutex_lock(&lock);
       deallocate_memory(required_memory);
-      pthread_mutex_unlock(&lock);
-
     }
     else {
-      job->required_time -= time_quantum;
       sleep(time_quantum);
+      printf("switching threads\n");
+      job->required_time -= time_quantum;
       enqueue(jobs, job);
-      free(jobs);
-      pthread_mutex_lock(&lock);
       deallocate_memory(required_memory);
-      pthread_mutex_unlock(&lock);
     }
+    pthread_mutex_unlock(&lock);
   }
+
+  // default for FCFS, LIFO, SJF
   else {
+    pthread_mutex_lock(&lock);
+    print_starting(fp, number);
+    allocate_memory(required_memory);
+    pthread_mutex_unlock(&lock);
+
     sleep(job->required_time);
 
-    /******************************************************************
-     * inform user that the job finished executing
-     ******************************************************************/
+    pthread_mutex_lock(&lock);
     print_completed(fp, number);
     free(job);
-
-    /******************************************************************
-     * deallocate memory
-     ******************************************************************/
-    pthread_mutex_lock(&lock);
     deallocate_memory(required_memory);
     pthread_mutex_unlock(&lock);
-  //}
+  } 
 }
 
 void allocate_memory(int r) {
